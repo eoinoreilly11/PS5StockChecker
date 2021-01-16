@@ -18,6 +18,7 @@ async def go(ctx):
     winner  = 0
 
     while 1:
+        await ctx.send('...')
         
         #GameStop
         urlGS = 'https://www.gamestop.ie/PlayStation%205/Games/72504/playstation-5-console'
