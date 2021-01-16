@@ -10,7 +10,7 @@ client = commands.Bot(command_prefix =  '!')
 async def on_ready():
     print("Bot Ready")
 
-TOKEN = 'USER_TOKEN'
+TOKEN = 'BOT_TOKEN'
 imgURL = 'https://i.guim.co.uk/img/media/f58aa676496e9eaba611000477f28d0232fd91eb/0_165_3378_2027/master/3378.jpg?width=620&quality=45&auto=format&fit=max&dpr=2&s=e8c5338394932059caf20ba2516be828'
 
 @client.command(pass_context=True)
@@ -18,7 +18,6 @@ async def go(ctx):
     winner  = 0
 
     while 1:
-        await ctx.send('...')
         
         #GameStop
         urlGS = 'https://www.gamestop.ie/PlayStation%205/Games/72504/playstation-5-console'
@@ -33,7 +32,7 @@ async def go(ctx):
         stockSmyths = str(soup.find("form", {"id": "customAddToCartForm"}).find('button'))
 
         if stockGS == 'Out Of Stock':
-            print('GS Out Of Stock\n')
+            print('GS Out Of Stock...')
 
         else:
             winner = 1
@@ -58,7 +57,7 @@ async def go(ctx):
             await ctx.send(embed=embed)
 
         else:
-            print('Smyths Out of Stock\n')
+            print('Smyths Out of Stock...\n')
 
             
         if winner == 1:
