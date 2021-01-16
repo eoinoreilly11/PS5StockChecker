@@ -23,14 +23,16 @@ async def go(ctx):
         #GameStop
         urlGS = 'https://www.gamestop.ie/PlayStation%205/Games/72504/playstation-5-console'
         content = requests.get(urlGS)
-        soup = bs.BeautifulSoup(content.text, 'lxml')
-        stockGS = soup.find("div", {"class": "bigBuyButtons SPNOpenMap"}).find('a').text
+        if not content is None:
+            soup = bs.BeautifulSoup(content.text, 'lxml')
+            stockGS = soup.find("div", {"class": "bigBuyButtons SPNOpenMap"}).find('a').text
 
         #Smyths
         urlSmyths = 'https://www.smythstoys.com/ie/en-ie/video-games-and-tablets/playstation-5/playstation-5-consoles/playstation-5-console/p/191259'
         content = requests.get(urlSmyths)
-        soup = bs.BeautifulSoup(content.text, 'lxml')
-        stockSmyths = str(soup.find("form", {"id": "customAddToCartForm"}).find('button'))
+        if not content is None:
+            soup = bs.BeautifulSoup(content.text, 'lxml')
+            stockSmyths = str(soup.find("form", {"id": "customAddToCartForm"}).find('button'))
 
         if winnerG == 0:
             if stockGS == 'Out Of Stock':
