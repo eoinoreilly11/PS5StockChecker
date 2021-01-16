@@ -15,7 +15,8 @@ imgURL = 'https://i.guim.co.uk/img/media/f58aa676496e9eaba611000477f28d0232fd91e
 
 @client.command(pass_context=True)
 async def go(ctx):
-    winner  = 0
+    winnerG = 0
+    winnerS = 0
 
     while 1:
         
@@ -31,37 +32,40 @@ async def go(ctx):
         soup = bs.BeautifulSoup(content.text, 'lxml')
         stockSmyths = str(soup.find("form", {"id": "customAddToCartForm"}).find('button'))
 
-        if stockGS == 'Out Of Stock':
-            print('GS Out Of Stock...')
+        if winnerG == 0:
+            if stockGS == 'Out Of Stock':
+                print('GS Out Of Stock...')
 
-        else:
-            winner = 1
-            embed = discord.Embed(
-                title = 'PS5 IN STOCK',
-                description = 'GAMESTOP IN STOCK',
-                url = urlGS,
-                color=discord.Color.blue()
-            )
-            embed.set_thumbnail(url=imgURL)
-            await ctx.send(embed=embed)
+            else:
+                winnerG = 1
+                embed = discord.Embed(
+                    title = 'PS5 IN STOCK',
+                    description = 'GAMESTOP IN STOCK',
+                    url = urlGS,
+                    color=discord.Color.blue()
+                )
+                embed.set_thumbnail(url=imgURL)
+                await ctx.send(embed=embed)
 
-        if stockSmyths[53:66] == 'js-enable-btn':
-            winner = 1
-            embed = discord.Embed(
-                title = 'PS5 IN STOCK',
-                description = 'SMYTHS IN STOCK',
-                url = urlSmyths,
-                color=discord.Color.blue()
-            )
-            embed.set_thumbnail(url=imgURL)
-            await ctx.send(embed=embed)
 
-        else:
-            print('Smyths Out of Stock...\n')
+        if  winnerS == 0:
+            if 'js-enable-btn' in stockSmyths:
+                winnerS = 1
+                embed = discord.Embed(
+                    title = 'PS5 IN STOCK',
+                    description = 'SMYTHS IN STOCK',
+                    url = urlSmyths,
+                    color=discord.Color.blue()
+                )
+                embed.set_thumbnail(url=imgURL)
+                await ctx.send(embed=embed)
+
+            else:
+                print('Smyths Out of Stock...\n')
 
             
-        if winner == 1:
+        if winnerG == 1 and winnerS == 1:
             break
-        time.sleep(30)
+        time.sleep(3)
 
 client.run(TOKEN)
